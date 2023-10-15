@@ -58,7 +58,7 @@
                         @livewire('history-chat.navbar-history-chat', [
                             'selectedContactId' => $item->id,
                         ])
-                        <div class="px-5">
+                        <div class="">
                             @livewire('chat.history-chat', [
                                 'selectedContactId' => $item->id,
                             ])
