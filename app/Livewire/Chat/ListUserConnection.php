@@ -23,11 +23,11 @@ class ListUserConnection extends Component
     }
 
     public function mount(){
-        $this->user = ListContact::where('id_user', '<>', Auth::user()->id)
+        $this->user = ListContact::where('user_Login', '<>', Auth::user()->id)
             ->with("User")->get();
     }
 
     public function setNewUser(){
-        $this->user = ListContact::where('id_user', '<>', Auth::user()->id)->with("User")->get();
+        $this->user = ListContact::where('user_Login', '<>', Auth::user()->id)->with("User")->get();
     }
 }

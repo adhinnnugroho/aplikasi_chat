@@ -56,11 +56,11 @@
                 <template x-if="selectedContact == '{{ $item->id }}'">
                     <div class="flex flex-col justify-between">
                         @livewire('history-chat.navbar-history-chat', [
-                            'selectedContactId' => $item->id,
+                            'selectedContactId' => $item->id_user,
                         ])
                         <div class="">
                             @livewire('chat.history-chat', [
-                                'selectedContactId' => $item->id,
+                                'selectedContactId' => $item->id_user,
                             ])
                         </div>
                     </div>
