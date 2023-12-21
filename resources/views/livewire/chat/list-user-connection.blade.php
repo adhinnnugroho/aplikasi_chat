@@ -8,10 +8,10 @@
 }">
     <div class="flex flex-row justify-between bg-white">
         <!-- chat list -->
-        <div class="w-2/5">
+        <div class="lg:w-2/5 w-screen">
             <div x-show="!openSettingProfile">
                 <div class="" x-show="!openSettingSidebar">
-                    <div class="flex flex-col border-r-2 overflow-y-auto" style="height: 50rem">
+                    <div class="flex flex-col lg:border-r-2 overflow-y-auto" style="height: 50rem">
                         @livewire('layout.partials.navbar.navbar-list-user')
                         <div class="py-4 px-2">
                             <input type="text" placeholder="search chatting"
@@ -51,7 +51,7 @@
         </div>
         <!-- end chat list -->
         <!-- message -->
-        <div class="w-full">
+        <div class="lg:w-full">
             @foreach ($user as $key => $item)
                 <template x-if="selectedContact == '{{ $item->id }}'">
                     <div class="flex flex-col justify-between">
@@ -68,7 +68,7 @@
             @endforeach
         </div>
         <!-- end message -->
-        <div class="w-2/5 border-l-2 px-5" x-show="openSidebar">
+        <div class="lg:w-2/5 lg:border-l-2 lg:px-5" x-show="openSidebar">
             @foreach ($user as $key => $item)
                 <template x-if="selectedContact == '{{ $item->id }}'">
                     @livewire('history-chat.sidebar-history-chat', [

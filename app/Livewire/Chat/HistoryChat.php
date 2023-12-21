@@ -11,6 +11,7 @@ class HistoryChat extends Component
 {
     public $account_data;
     public $selectedContactId;
+    public $chatvalue;
 
     public function render()
     {
@@ -20,5 +21,11 @@ class HistoryChat extends Component
 
     public function mount(){
         $this->account_data = User::where(['id' => $this->selectedContactId])->first();
+
+        $this->chatvalue  = null;
+    }
+
+    public function savedChat(){
+        dd("test");
     }
 }
