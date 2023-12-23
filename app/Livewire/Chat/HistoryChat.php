@@ -2,16 +2,26 @@
 
 namespace App\Livewire\Chat;
 
+use App\Models\Chat;
 use App\Models\User;
 use App\Models\Account;
+use App\Models\Message;
 use Livewire\Component;
 use App\Models\ListContact;
+use Illuminate\Support\Facades\Auth;
 
 class HistoryChat extends Component
 {
+    public $listeners = [
+        'sendnewmessage' => '$refresh',
+        'savedChat' => 'savedChat',
+    ];
+
     public $account_data;
     public $selectedContactId;
     public $chatvalue;
+    public $history_chat;
+
 
     public function render()
     {
@@ -23,9 +33,42 @@ class HistoryChat extends Component
         $this->account_data = User::where(['id' => $this->selectedContactId])->first();
 
         $this->chatvalue  = null;
+        $data_userLogin = Auth::user();
+
+        $this->history_chat = Chat::where([
+            'sender_id' => $data_userLogin->id,
+            'receiver_id' => $this->selectedContactId
+        ])->first();
     }
 
     public function savedChat(){
-        dd("test");
+        $valueChat = $this->chatvalue;
+        $data_userLogin = Auth::user();
+
+        $checking_chat = Chat::where([
+            'sender_id' => $data_userLogin->id,
+            'receiver_id' => $this->selectedContactId
+        ])->first();
+
+        if (is_null($checking_chat)) {
+            $chat_id = Chat::create([
+                'sender_id' => $data_userLogin->id,
+                'receiver_id' => $this->selectedContactId
+            ]);
+        }else{
+            $chat_id = $checking_chat;
+        }
+
+        Message::create([
+            'chat_id' => $chat_id->id,
+            'boddy_message' => $valueChat
+        ]);
+
+        $this->chatvalue = null;
+        $this->history_chat = Chat::where([
+            'sender_id' => $data_userLogin->id,
+            'receiver_id' => $this->selectedContactId
+        ])->first();
+        $this->dispatch('sendnewmessage');
     }
 }

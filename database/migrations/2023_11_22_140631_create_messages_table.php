@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->integer('chat_id')->default(12);
+            $table->longText('boddy_message')->nullable();
             $table->timestamp('read_at')->nullable();
             $table->timestamp('receiver_deleted_at')->nullable();
             $table->timestamp('sender_deleted_at')->nullable();
-            $table->longText('boddy_message')->nullable();
             $table->timestamps();
         });
     }
