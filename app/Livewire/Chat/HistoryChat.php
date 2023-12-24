@@ -34,10 +34,13 @@ class HistoryChat extends Component
         $this->chatvalue  = null;
         $data_userLogin = Auth::user();
 
-        $this->history_chat = Chat::where([
-            'sender_id' => $data_userLogin->id,
-            'receiver_id' => $this->selectedContactId
-        ])->first();
+        $this->history_chat = Chat::where(function($query) use ($data_userLogin) {
+            $query->where('sender_id', $data_userLogin->id)
+                ->orWhere('receiver_id', $data_userLogin->id);
+        })->where(function($query) {
+            $query->where('sender_id', $this->selectedContactId)
+                ->orWhere('receiver_id', $this->selectedContactId);
+        })->first();
     }
 
     public function savedChat(){
@@ -64,10 +67,13 @@ class HistoryChat extends Component
         ]);
 
         $this->chatvalue = null;
-        $this->history_chat = Chat::where([
-            'sender_id' => $data_userLogin->id,
-            'receiver_id' => $this->selectedContactId
-        ])->first();
+        $this->history_chat = Chat::where(function($query) use ($data_userLogin) {
+            $query->where('sender_id', $data_userLogin->id)
+                ->orWhere('receiver_id', $data_userLogin->id);
+        })->where(function($query) {
+            $query->where('sender_id', $this->selectedContactId)
+                ->orWhere('receiver_id', $this->selectedContactId);
+        })->first();
         $this->dispatch('sendnewmessage');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Chat;
 
+use App\Models\Chat;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\ListContact;

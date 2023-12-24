@@ -1,28 +1,30 @@
 <div>
-    <div class="flex px-5 flex-col mt-24 flex-grow overflow-y-auto">
+    <div class="flex px-5 flex-col mt-24 flex-grow overflow-y-auto mb-32">
         <div class="flex-grow overflow-y-auto">
             @foreach ($chat as $index => $item)
-                @if ($item->sender_id == $user_login->id)
-                    <div class="flex justify-start mb-4">
-                        <div class="ml-2 py-3 px-4 bg-blue-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
-                            {{ $item->boddy_message }}
-                        </div>
-                    </div>
-                @else
-                    <div class="flex justify-end mb-4">
-                        <div class="bg-white p-4 rounded-lg shadow-md">
-                            <p class="text-gray-800">
-                                {{ $item->boddy_message }}
-                            </p>
-                            <div class="flex items-center mt-2 float-right">
-                                {{-- <div class="w-2 h-2 bg-green-500 rounded-full ml-1"></div> --}}
-                                <p class="text-xs text-gray-500">
-                                    {{ date('H:i', strtotime($item->created_at)) }}
-                                </p>
+                @foreach ($item->Messages as $message)
+                    @if ($item->sender_id == $user_login->id)
+                        <div class="flex justify-start mb-4">
+                            <div class="ml-2 py-3 px-4 bg-blue-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
+                                {{$message->boddy_message}}
                             </div>
                         </div>
-                    </div>
-                @endif
+                    @else
+                        <div class="flex justify-end mb-4">
+                            <div class="bg-white p-4 rounded-lg shadow-md">
+                                <p class="text-gray-800">
+                                    {{$message->boddy_message}}
+                                </p>
+                                <div class="flex items-center mt-2 float-right">
+                                    {{-- <div class="w-2 h-2 bg-green-500 rounded-full ml-1"></div> --}}
+                                    <p class="text-xs text-gray-500">
+                                        {{ date('H:i', strtotime($message->created_at)) }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
             @endforeach
         </div>
     </div>

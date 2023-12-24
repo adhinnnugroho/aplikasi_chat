@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class HandleValueChat extends Component
 {
-    public $chat_id, $chat;
-    public $user_login;
+    public $chat;
+    public $user_login, $selectedContactId;
 
     public $listeners = [
         'sendnewmessage' => 'refreshChat',
@@ -24,16 +24,34 @@ class HandleValueChat extends Component
 
     public function refreshChat()
     {
-        $this->chat = Message::where([
-            'chat_id' => $this->chat_id,
-        ])->get();
+        $this->chat = Chat::where(function($query) {
+            $query->where('sender_id', $this->user_login->id)
+                ->orWhere('receiver_id', $this->user_login->id);
+        })->where(function($query) {
+            $query->where('sender_id', $this->selectedContactId)
+                ->orWhere('receiver_id', $this->selectedContactId);
+        })->get();
     }
 
     public function mount()
     {
         $this->user_login = Auth::user();
-        $this->chat = Message::where([
-            'chat_id' => $this->chat_id,
-        ])->get();
+
+        $this->chat = Chat::where(function($query) {
+            $query->where('sender_id', $this->user_login->id)
+                ->orWhere('receiver_id', $this->user_login->id);
+        })->where(function($query) {
+            $query->where('sender_id', $this->selectedContactId)
+                ->orWhere('receiver_id', $this->selectedContactId);
+        })->get();
+        // $this->chat = Message::whereHas('chats', function($query){
+        //     $query->where(function($subquery) {
+        //         $subquery->where('sender_id', $this->user_login->id)
+        //             ->where('receiver_id', $this->selectedContactId);
+        //     })->orWhere(function($subquery) {
+        //         $subquery->where('sender_id', $this->selectedContactId)
+        //             ->where('receiver_id', $this->user_login->id);
+        //     });
+        // })->get();
     }
 }

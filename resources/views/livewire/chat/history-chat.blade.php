@@ -4,7 +4,8 @@
 
     @else
         @livewire('chats.handle-value-chat', [
-            'chat_id' => $history_chat->id
+            'chat_id' => $history_chat->id,
+            'selectedContactId' => $selectedContactId
         ])
     @endif
 
