@@ -16,9 +16,11 @@
         <div class="flex flex-wrap gap-6" x-data="{ inputValue: '{{ $chatvalue }}' }">
             <i class="fas fa-plus text-2xl text-gray-500 mt-1"></i>
 
-            <input class="bg-gray-300 rounded-lg w-[63rem] px-4 py-2 focus:border-gray-300" type="text"
+            <textarea class="bg-gray-300 rounded-lg w-[63rem] px-4 py-2 focus:border-gray-300" type="text"
                 placeholder="Ketik pesan Anda..." id="send_message" x-ref="input" x-model="inputValue"
                 wire:model.lazy="chatvalue" @keydown.enter="submitForm" x-on:keyup="adjustInputHeight">
+
+            </textarea>
             <i class="fas fa-microphone text-2xl float-right mt-1 fixed right-7 text-gray-500 cursor-pointer"></i>
         </div>
     </div>
@@ -47,27 +49,24 @@
                     // Menemukan posisi newline sebelumnya
                     var lastNewline = beforeInsert.lastIndexOf('\n');
                     // Menemukan posisi awal dari blok teks terakhir yang ditambahkan
-                    // var startOfLastBlock = lastNewline + 52;
+                    var startOfLastBlock = lastNewline + (cursorPosition * 4) + 53;
 
-                    // // Menghitung posisi kursor setelah penambahan newline
-                    // var newPosition = (cursorPosition * 8) + 51;
+                    // Menghitung posisi kursor setelah penambahan newline
+                    var newPosition = (cursorPosition * 8) + 51;
 
-                    // // Jika kita sudah melebihi chunkSize, geser kursor ke awal blok terakhir
-                    // if ((cursorPosition * 8) + 50 - startOfLastBlock >= chunkSize) {
-                    //     newPosition = startOfLastBlock;
-                    // }
+                    // Jika kita sudah melebihi chunkSize, geser kursor ke awal blok terakhir
+                    if ((cursorPosition * 8) + 50 - startOfLastBlock >= chunkSize) {
+                        newPosition = startOfLastBlock;
+                    }
 
-                    // // // Menambahkan newline pada posisi yang dihitung
-                    // input.value = beforeInsert.substring(0, newPosition) + '\n' + afterInsert;
+                    // // Menambahkan newline pada posisi yang dihitung
+                    input.value = beforeInsert.substring(0, newPosition) + '\n' + afterInsert;
 
-                    // // // Menetapkan posisi kursor yang benar setelah penyisipan newline
-                    // input.setSelectionRange(newPosition + 1, newPosition + 1);
+                    // // Menetapkan posisi kursor yang benar setelah penyisipan newline
+                    input.setSelectionRange(newPosition + 1, newPosition + 1);
 
-                    // // Menyesuaikan tinggi input
-                    // input.style.height = input.scrollHeight + 'px';
-                    input.style.height = '100px';
-
-                    console.log(input.scrollHeight + 'px');
+                    // Menyesuaikan tinggi input
+                    input.style.height = input.scrollHeight + 'px';
                 }
             }
         </script>
