@@ -1,4 +1,4 @@
-<div class="border-b-2 bg-gray-200 p-4">
+<div class="border-b-2 bg-gray-200 p-4 fixed w-screen">
     <div class="flex flex-wrap justify-between">
         <a href="#"  x-on:click="openSidebar = !openSidebar">
             <div class="flex flex-warp">
