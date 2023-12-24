@@ -14,7 +14,6 @@ class HistoryChat extends Component
 {
     public $listeners = [
         'savedChat' => 'savedChat',
-        'sendnewmessage' => 'refreshChat',
     ];
 
     public $account_data;
@@ -39,10 +38,6 @@ class HistoryChat extends Component
             'sender_id' => $data_userLogin->id,
             'receiver_id' => $this->selectedContactId
         ])->first();
-    }
-
-    public function refreshChat(){
-        // dd("test");
     }
 
     public function savedChat(){
