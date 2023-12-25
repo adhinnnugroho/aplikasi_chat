@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Message;
+use App\Helpers\Encryption;
 use App\Models\ListContact;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,5 +39,9 @@ class Chat extends Model
         return Message::where([
             'chat_id' => $chat_id
         ])->whereNull('read_at')->count();
+    }
+
+    public function EncrytionsChatId($chat_id){
+        return Encryption::encryptId($chat_id);
     }
 }

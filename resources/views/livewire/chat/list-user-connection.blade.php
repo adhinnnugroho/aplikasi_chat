@@ -36,23 +36,28 @@
 
                                 @foreach ($user as $item)
                                     <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer"
-                                        x-on:click="selectedContact = {{ $item->receiver->id ?? $item->sender->id }}">
+                                        x-on:click="selectedContact = '{{ $item->receiver->id ?? $item->sender->id }}'"
+                                        wire:key="{{$item->EncrytionsChatId($item->id)}}')" wire:click="mount">
                                         <div class="w-1/4">
                                             <img src="{{ $item->receiver->user->avatar ?? $item->sender->user->avatar }}"
                                                 class="object-cover h-12 w-12 ml-5 rounded-full" alt="" />
                                         </div>
                                         <div class="w-full">
-                                            <div class="{{$item->unreadMessagesCount($item->id) > 0 ? 'text-black font-bold' : 'font-semibold'}} text-lg ">
+                                            <div
+                                                class="{{ $item->unreadMessagesCount($item->id) > 0 ? 'text-black font-bold' : 'font-semibold' }} text-lg ">
                                                 {{ $item->receiver->user->name ?? $item->sender->user->name }}
                                             </div>
-                                            <span class="{{$item->unreadMessagesCount($item->id) > 0 ? 'text-black font-bold' : 'text-gray-500'}}">
+                                            <span
+                                                class="{{ $item->unreadMessagesCount($item->id) > 0 ? 'text-black font-bold' : 'text-gray-500' }}">
                                                 {{ implode('..', str_split($item->lastMessage->boddy_message, 20)) }}
                                             </span>
-                                            <div class="{{$item->unreadMessagesCount($item->id) > 0 ? 'text-black font-bold' : 'text-gray-500'}} float-right lg:-mt-5">
+                                            <div
+                                                class="{{ $item->unreadMessagesCount($item->id) > 0 ? 'text-black font-bold' : 'text-gray-500' }} float-right lg:-mt-5">
                                                 {{ date('H:i', strtotime($item->lastMessage->created_at)) }}
                                             </div>
                                             @if ($item->unreadMessagesCount($item->id) > 0)
-                                                <div class="float-right mt-1 bg-green-700 rounded-full text-white w-6 h-6
+                                                <div
+                                                    class="float-right mt-1 bg-green-700 rounded-full text-white w-6 h-6
                                                 text-center lg:-mr-7">
                                                     {{ $item->unreadMessagesCount($item->id) }}
                                                 </div>
@@ -101,7 +106,8 @@
         <!-- end message -->
         <div class="lg:w-2/5 lg:border-l-2 lg:px-5" x-show="openSidebar">
             @foreach ($user as $key => $item)
-                <template x-if="selectedContact == '{{ $item->receiver->id ?? $item->sender->id }}'">
+                <template
+                    x-if="selectedContact == '{{ $item->EncrytionsChatId($item->receiver->id ?? $item->sender->id) }}'">
                     @livewire('history-chat.sidebar-history-chat', [
                         'selectedContactId' => $item->receiver->id ?? $item->sender->id,
                     ])
