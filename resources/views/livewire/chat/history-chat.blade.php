@@ -88,13 +88,7 @@
 
                     input.style.height = 'auto';
                     // Menyesuaikan tinggi input
-                    // input.style.height = input.scrollHeight + 'px';
-                    var totalRows = input.value.split('\n').length;
-                    console.log(input.rows = totalRows);
-
-                    // Geser ke bawah untuk menunjukkan baris terakhir
-                    input.scrollTop = input.scrollHeight;
-
+                    input.style.height = input.scrollHeight + 'px';
                 }
             }
 
