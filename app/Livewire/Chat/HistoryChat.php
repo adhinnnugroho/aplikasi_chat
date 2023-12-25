@@ -38,10 +38,6 @@ class HistoryChat extends Component
         })->where(function ($query) {
             $query->where('sender_id', $this->selectedContactId)->orWhere('receiver_id', $this->selectedContactId);
         })->first();
-
-        if (!is_null($this->history_chat)) {
-            $this->update_read_at();
-        }
     }
 
     public function savedChat()
@@ -76,19 +72,5 @@ class HistoryChat extends Component
         })->first();
 
         $this->dispatch('sendnewmessage');
-    }
-
-    public function update_read_at()
-    {
-        $data_userLogin = Auth::user();
-        foreach ($this->history_chat->Messages as $key => $message_value) {
-            if ($this->history_chat->receiver_id == $data_userLogin->id) {
-                Message::where([
-                    'id' => $message_value->id,
-                ])->update([
-                    'read_at' => date('Y-m-d, H:i:s'),
-                ]);
-            }
-        }
     }
 }

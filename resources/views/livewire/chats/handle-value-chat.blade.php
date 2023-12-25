@@ -5,7 +5,7 @@
                 @foreach ($item->Messages as $message)
                     @if ($item->sender_id == $user_login->id)
                         <div class="flex justify-end mb-4 overflow-hidden">
-                            <div class="bg-gray-500  p-4 rounded-lg shadow-md max-w-2xl">
+                            <div class="bg-green-800  p-4 rounded-lg shadow-md max-w-2xl">
                                 <p class="text-white mr-14 -mb-5 text-right">
                                     {!! implode("\n", str_split($message->boddy_message, 70)) !!}
                                 </p>
