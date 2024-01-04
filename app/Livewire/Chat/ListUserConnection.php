@@ -13,6 +13,7 @@ class ListUserConnection extends Component
 {
     public $user;
     public $selected_contact, $count_message_not_read;
+    public $search_chat;
     public $listeners = [
         'refreshNavbar' => '$refresh',
     ];
@@ -35,6 +36,10 @@ class ListUserConnection extends Component
             ->get();
     }
 
+    public function updatedSearchChat(){
+        dd("test");
+    }
+
     public function setNewUser()
     {
         $this->user = Chat::where(function ($query) use ($data_userLogin) {
@@ -45,6 +50,10 @@ class ListUserConnection extends Component
             })
             ->orderBy('chats.created_at', 'desc')
             ->get();
+    }
+
+    public function updateReadAt($contactId){
+        dd($contactId);
     }
 
     public function readMessage()

@@ -32,6 +32,8 @@
             box-shadow: 0 0 0 1px white;
         }
     </style>
+    <x-livewire-alert::scripts />
+
 </head>
 
 <body class=" max-h-screen " >
@@ -46,9 +48,7 @@
 
 
     @livewireScripts
-
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <x-livewire-alert::scripts />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="{{ asset('/assets/js/custom-function.js') }}"></script>

@@ -5,7 +5,7 @@
     openSidebar: false,
     openSettingSidebar: false,
     openSettingProfile: false
-}">
+}" id="my-chat-list">
     <div class="flex flex-row justify-between bg-white">
         <!-- chat list -->
         <div class="lg:w-2/5 w-screen ">
@@ -16,9 +16,8 @@
                             @livewire('layout.partials.navbar.navbar-list-user')
                             <div class="py-4 px-2">
                                 <input type="text" placeholder="search chatting"
-                                    class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full" />
+                                    class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full" wire:model.live="search_chat"/>
                             </div>
-
                             @if (count($user) > 0)
                                 {{-- <template x-for="userList in listUserConnects">
                                     <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer"
@@ -35,9 +34,10 @@
                                 </template> --}}
 
                                 @foreach ($user as $item)
-                                    <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer"
-                                        x-on:click="selectedContact = '{{ $item->receiver->id ?? $item->sender->id }}'"
-                                        wire:key="{{$item->EncrytionsChatId($item->id)}}')" wire:click="mount">
+                                    <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2 cursor-pointer" wire:key="{{$item->EncrytionsChatId($item->id)}}"
+                                        {{-- x-on:click="selectedContact = '{{ $item->receiver->id ?? $item->sender->id }}'"> --}}
+                                        wire:click.stop="readMessage"
+                                        x-on:click="selectedContact = '{{ $item->receiver->id ?? $item->sender->id }}'; $wire.updateReadAt('{{ $item->receiver->id ?? $item->sender->id }}')">
                                         <div class="w-1/4">
                                             <img src="{{ $item->receiver->user->avatar ?? $item->sender->user->avatar }}"
                                                 class="object-cover h-12 w-12 ml-5 rounded-full" alt="" />

@@ -29,7 +29,6 @@ class HistoryChat extends Component
     public function mount()
     {
         $this->account_data = User::where(['id' => $this->selectedContactId])->first();
-
         $this->chatvalue = null;
         $data_userLogin = Auth::user();
 
