@@ -56,6 +56,12 @@
             @else
                 <span class="text-gray-400 text-center mt-5">Data not found</span>
             @endif
+
+
+            <div class="bg-green-700 text-white rounded-full w-10 h-10  absolute right-5 bottom-5 text-center text-2xl cursor-pointer"
+            x-on:click="ListContact = !ListContact">
+                +
+            </div>
         </div>
     </div>
 </div>

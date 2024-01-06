@@ -4,19 +4,26 @@
     selectedContact: '',
     openSidebar: false,
     openSettingSidebar: false,
-    openSettingProfile: false
+    openSettingProfile: false,
+    ListContact: false
 }" id="my-chat-list">
     <div class="flex flex-row justify-between bg-white">
         <!-- chat list -->
         <div class="lg:w-2/5 w-screen ">
-            <div x-show="!openSettingProfile">
-                <div class="" x-show="!openSettingSidebar">
+            <div x-show="!ListContact">
+                <div x-show="!openSettingProfile">
+                    <div class="" x-show="!openSettingSidebar">
 
-                    @livewire("chat.list-chat", [
-                        'user' => $user
-                    ])
+                        @livewire("chat.list-chat", [
+                            'user' => $user
+                        ])
 
+                    </div>
                 </div>
+            </div>
+
+            <div x-show="ListContact">
+                @livewire("contact.list-contact")
             </div>
 
             <div x-show="!openSettingProfile">
